@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="calc-view">
+            <div class="display">
+                <input type="text" placeholder="0" disabled id="main-input">
+                <p id="calc-data"></p>
+            </div>
+            <div class="buttons">
+                <div class="row">
+                    <button onclick="allClear();">AC</button>
+                    <button onclick="clearLastIndex();">C</button>
+                    <button onclick="squareRoot();">√</button>
+                    <button id="id1" onclick="buttonCLicked('/');">/</button>
+                </div>
+                <div class="row">
+                    <button onclick="buttonCLicked('9');">9</button>
+                    <button onclick="buttonCLicked('8');">8</button>
+                    <button onclick="buttonCLicked('7');">7</button>
+                    <button id="id2" onclick="buttonCLicked('*');">x</button>
+                </div>
+                <div class="row">
+                    <button onclick="buttonCLicked('6');">6</button>
+                    <button onclick="buttonCLicked('5');">5</button>
+                    <button onclick="buttonCLicked('4');">4</button>
+                    <button id="id3" onclick="buttonCLicked('+');">+</button>
+                </div>
+                <div class="row">
+                    <button onclick="buttonCLicked('3');">3</button>
+                    <button onclick="buttonCLicked('2');">2</button>
+                    <button onclick="buttonCLicked('1');">1</button>
+                    <button id="id4" onclick="buttonCLicked('-');">-</button>
+                </div>
+                <div class="row">
+                    <button onclick="answer();">ANS</button>
+                    <button onclick="buttonCLicked('0');">0</button>
+                    <button id="id6" onclick="buttonCLicked('.');">.</button>
+                    <button id="id5" onclick="equalTo();">=</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+
+</html>
