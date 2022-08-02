@@ -1,39 +1,32 @@
 var buttonValue = document.getElementById("main-input");
 var answerStore = 0;
 function buttonCLicked(a) {
-    buttonValue.value += a;
     var lastIndex = buttonValue.value.length - 1;
-    if (buttonValue.value[lastIndex] === "+" || buttonValue.value[lastIndex] === "-" || buttonValue.value[lastIndex] === "*" || buttonValue.value[lastIndex] === "/") {
-        document.getElementById("id1").setAttribute("disabled", "disabled");
-        document.getElementById("id2").setAttribute("disabled", "disabled");
-        document.getElementById("id3").setAttribute("disabled", "disabled");
-        document.getElementById("id4").setAttribute("disabled", "disabled");
-        document.getElementById("id5").setAttribute("disabled", "disabled");
+    if ((buttonValue.value[lastIndex] === "+" || buttonValue.value[lastIndex] === "-" || buttonValue.value[lastIndex] === "*" || buttonValue.value[lastIndex] === "/") && (a === "+" || a === "-" || a === "*" || a === "/")) {
+        buttonValue.value = buttonValue.value.slice(0, lastIndex) + a;
     } else {
-        document.getElementById("id1").removeAttribute("disabled", "disabled");
-        document.getElementById("id2").removeAttribute("disabled", "disabled");
-        document.getElementById("id3").removeAttribute("disabled", "disabled");
-        document.getElementById("id4").removeAttribute("disabled", "disabled");
-        document.getElementById("id5").removeAttribute("disabled", "disabled");
+        buttonValue.value += a;
     }
-    if (buttonValue.value[lastIndex] === ".") {
-        document.getElementById("id6").setAttribute("disabled", "disabled");
-    } else if (buttonValue.value[lastIndex] === "+" || buttonValue.value[lastIndex] === "-" || buttonValue.value[lastIndex] === "*" || buttonValue.value[lastIndex] === "/") {
-        document.getElementById("id6").removeAttribute("disabled", "disabled");
+    for (i = 0; i < buttonValue.value.length; i++) {
+        if (buttonValue.value[i] === ".") {
+            document.getElementById("id1").setAttribute("disabled", "disabled")
+        }
+        else if (buttonValue.value[i] === "+" || buttonValue.value[i] === "-" || buttonValue.value[i] === "/" || buttonValue.value[i] === "*") {
+            document.getElementById("id1").removeAttribute("disabled", "disabled")
+        }
     }
 }
 
 function allClear() {
     document.querySelector("p").innerHTML = "";
     buttonValue.value = "";
+    document.getElementById("id1").removeAttribute("disabled", "disabled")
 }
 function clearLastIndex() {
+    if (buttonValue.value[buttonValue.value.length - 1] === ".") {
+        document.getElementById("id1").removeAttribute("disabled", "disabled")
+    }
     buttonValue.value = buttonValue.value.slice(0, buttonValue.value.length - 1);
-    document.getElementById("id1").removeAttribute("disabled", "disabled");
-    document.getElementById("id2").removeAttribute("disabled", "disabled");
-    document.getElementById("id3").removeAttribute("disabled", "disabled");
-    document.getElementById("id4").removeAttribute("disabled", "disabled");
-    document.getElementById("id5").removeAttribute("disabled", "disabled");
 }
 function squareRoot() {
     buttonValue.value = Math.sqrt(buttonValue.value).toFixed(6);
@@ -47,17 +40,23 @@ function answer() {
     }
 }
 function equalTo() {
-    if (buttonValue.value === "") {
+    document.querySelector("p").innerHTML = buttonValue.value + " =";
+    var flag = false;
+    if (buttonValue.value === "" || (buttonValue.value[buttonValue.value.length - 1] === "+" || buttonValue.value[buttonValue.value.length - 1] === "-" || buttonValue.value[buttonValue.value.length - 1] === "/" || buttonValue.value[buttonValue.value.length - 1] === "*")) {
         return;
     }
-    else {
-        for (i = 0; i < buttonValue.value.toString().length; i++) {
-            if (buttonValue.value[i] === "+" || buttonValue.value[i] === "-" || buttonValue.value[i] === "*" || buttonValue.value[i] === "/") {
-                document.querySelector("p").innerHTML = buttonValue.value + " =";
-                break;
-            }
+    answerStore = eval(buttonValue.value);
+    for (i = 0; i < answerStore.toString().length; i++) {
+        if (answerStore.toString()[i] === ".") {
+            buttonValue.value = eval(buttonValue.value).toFixed(6);
+            answerStore = eval(buttonValue.value).toFixed(6);
+            flag = true;
+            document.getElementById("id1").setAttribute("disabled", "disabled")
+            break;
         }
-        answerStore = eval(buttonValue.value);
+        document.getElementById("id1").removeAttribute("disabled", "disabled")
+    }
+    if (flag === false) {
         buttonValue.value = eval(buttonValue.value);
     }
 }
